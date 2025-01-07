@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"] - MyMvcApp</title>
-
+    <title>@ViewData["Title"] - ASP2</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -45,36 +44,30 @@
             width: 100%;
         }
 
-        .container {
-            margin: 20px;
-        }
-
-        h3 {
-            margin-bottom: 10px;
-        }
-
         ul {
-            list-style-type: none;
+            display: inline-block;
+        }
+
+        .button-list {
+            display: flex;
+            list-style: none;
             padding: 0;
             margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            gap: 10px; 
         }
 
-            ul li {
-                display: inline-block;
+            .button-list li {
+                margin: 0;
+                padding: 0;
             }
 
         button {
+            padding: 10px 20px;
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 16px;
+            border-radius: 5px;
         }
 
             button:hover {
@@ -91,49 +84,35 @@
     <nav>
         <a href="/">Головна</a>
     </nav>
+    <div>
+        <h3>Домашні тварини:</h3>
+        <ul class="button-list">
+            @foreach (var animal in ASP2.Models.AnimalRepository.Animals.Where(a => a.Type == "Pet"))
+            {
+                <li>
+                    <a href="/Animals/Details?name=@animal.Name">
+                        <button>@animal.Name</button>
+                    </a>
+                </li>
+            }
+        </ul>
+
+        <h3>Дикі тварини:</h3>
+        <ul class="button-list">
+            @foreach (var animal in ASP2.Models.AnimalRepository.Animals.Where(a => a.Type == "Wild"))
+            {
+                <li>
+                    <a href="/Animals/Details?name=@animal.Name">
+                        <button>@animal.Name</button>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
 
     <div class="container">
         @RenderBody()
-
-        <div>
-            <h3>Домашні тварини:</h3>
-            <ul>
-                <li>
-                    <a href="/Pets/Dog">
-                        <button>Собака</button>
-                    </a>
-                </li>
-                <li>
-                    <a href="/Pets/Cat">
-                        <button>Кішка</button>
-                    </a>
-                </li>
-                <li>
-                    <a href="/Pets/Parrot">
-                        <button>Папуга</button>
-                    </a>
-                </li>
-            </ul>
-
-            <h3>Дикі тварини:</h3>
-            <ul>
-                <li>
-                    <a href="/WildAnimals/Lion">
-                        <button>Лев</button>
-                    </a>
-                </li>
-                <li>
-                    <a href="/WildAnimals/Wolf">
-                        <button>Вовк</button>
-                    </a>
-                </li>
-                <li>
-                    <a href="/WildAnimals/Eagle">
-                        <button>Орел</button>
-                    </a>
-                </li>
-            </ul>
-        </div>
     </div>
 
     <footer>
